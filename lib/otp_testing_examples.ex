@@ -1,16 +1,16 @@
 defmodule OtpTestingExamples do
   use GenServer
 
-  def start_link(_) do
-    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
+  def start_link(config) do
+    GenServer.start_link(__MODULE__, %{}, name: config || __MODULE__)
   end
 
-  def fetch_all do
-    GenServer.call(__MODULE__, :fetch_all)
+  def fetch_all(pid \\ __MODULE__) do
+    GenServer.call(pid, :fetch_all)
   end
 
-  def insert(key, value) do
-    GenServer.cast(__MODULE__, {:insert, key, value})
+  def insert(pid \\ __MODULE__, key, value) do
+    GenServer.cast(pid, {:insert, key, value})
   end
 
   def fetch_all_via_pid(pid) do
